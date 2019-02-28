@@ -39,3 +39,4 @@ function cololololor() {
   export blink='\e[5m'     # Blink
 }
 cololololor
+# todo: echo something colorful
