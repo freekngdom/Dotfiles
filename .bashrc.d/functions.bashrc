@@ -97,6 +97,8 @@ askToRun systemInfo
 
 # ls **/*.text
 # grep -r textToFind **/*documentName*
+echo "ls **/*.text"
+echo "grep -r textToFind **/*documentName*"
 shopt -s globstar
 
 
