@@ -37,12 +37,6 @@ alias cld="icloud"
 alias dropbox='cd $dropbox'
 alias dbx='dropbox'
 
-# LYNDA tutorial
-lynda="$webdev/lynda_bash_tutorial/"
-alias lynda='cd $lynda'
-alias lnda='lynda'
-
-
 # SHORTCUTS
 alias ll='exa -lhG; pwd'
 alias lsa='exa -alhG; pwd'
@@ -62,7 +56,7 @@ alias quit='exit'
 alias q='quit'
 
 # EDIT BASHRC
-alias bashrc='code ~/.bashrc'
+alias bashrc='code ~/.bashrc.d'
 
 # SORT CLIPBOARD
 alias pbsort='pbpaste | sort | pbcopy'
@@ -71,7 +65,7 @@ alias pbsort='pbpaste | sort | pbcopy'
 alias mv='echo "mv -i"; mv -i'
 alias cp='echo "cp -i"; cp -i'
 # alias rm='echo "rm -i"; rm -i'
-alias df='echo "df -h"; df -h'
+# alias df='echo "df -h"; df -h'
 alias du='echo "du -h"; du -h'
 alias mkdir='echo "mkdir -p"; mkdir -p'
 # alias cat='bat'
@@ -86,16 +80,16 @@ function cat() {
   fi
 }
 
-# enhance cd
-function cd() {
-    if [[ -d "$@" ]]; then
-      clear;
-      builtin cd "$@" || exit;
-      la;
-    else
-      builtin cd "$@" || exit;
-    fi
-}
+# # enhance cd
+# function cd() {
+#     if [[ -d "$@" ]]; then
+#       clear;
+#       builtin cd "$@" || exit;
+#       la;
+#     else
+#       builtin cd "$@" || exit;
+#     fi
+# }
 
 
 

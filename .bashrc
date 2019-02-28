@@ -4,14 +4,24 @@ echo "$HOME/.bashrc"
 echo "$HOME/.bashrc"
 echo "$HOME/.bashrc"
 echo
+echo
+echo -n "Hola "; whoami;
 
-for file in ~/.bashrc.d/*.bashrc; do
-  source "$file"
-done
+function runFilesInBashrcDirectory() {
+  local txtrst='\e[0m'    # Text Reset
+  local bldpur='\e[1;35m' # Purple
+  local bldblu='\e[1;34m' # Blue
+  for file in ~/.bashrc.d/*.bashrc; do
+    echo
+    echo -e "Loading: $bldpur$file$txtrst\n\t$bldblu$file$txtrst"
+    source "$file"
+    echo
+  done
+}
+runFilesInBashrcDirectory
 
-
-clear;
-echo "~/.bashrc"
-echo "~/.bashrc"
-echo "~/.bashrc"
-echo;
+echo
+echo "$HOME/.bashrc"
+echo "$HOME/.bashrc"
+echo "$HOME/.bashrc"
+echo
