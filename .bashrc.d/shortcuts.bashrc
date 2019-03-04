@@ -87,6 +87,7 @@ function cd() {
       la;
     else
       builtin cd "$@" || exit;
+      la;
     fi
 }
 
