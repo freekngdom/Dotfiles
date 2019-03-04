@@ -2,7 +2,6 @@
 # Unofficial strict mode
 # set -euo pipefail
 
-echo "EXPORTS & ALIASES from shortcuts.bashrc"
 # EXPORTS & ALIASES
 # EXPORTS & ALIASES
 
@@ -81,15 +80,15 @@ function cat() {
 }
 
 # # enhance cd
-# function cd() {
-#     if [[ -d "$@" ]]; then
-#       clear;
-#       builtin cd "$@" || exit;
-#       la;
-#     else
-#       builtin cd "$@" || exit;
-#     fi
-# }
+function cd() {
+    if [[ -d "$@" ]]; then
+      clear;
+      builtin cd "$@" || exit;
+      la;
+    else
+      builtin cd "$@" || exit;
+    fi
+}
 
 
 
@@ -130,8 +129,15 @@ export GREP_OPTIONS="--color=auto"
 alias aliases="grep alias ~/.bashrc.d/shortcuts.bashrc"
 alias exports="grep export ~/.bashrc.d/shortcuts.bashrc"
 
-echo "aliases: "
-aliases
-echo; echo;
-echo "exports: "
-exports
+function showAliases() {
+  echo "aliases: "
+  aliases
+  echo; echo;
+  echo "exports: "
+  exports
+  echo; echo;
+  echo "Globstar Examples:"
+  echo "ls **/*.text"
+  echo "grep -r textToFind **/*documentName*"
+}
+askToRun showAliases

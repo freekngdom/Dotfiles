@@ -9,13 +9,14 @@ function askToRun() {
   local args=( "$@" )
   local arrg=${args[*]}
   echo -e "$txtylw Would you like to '$arrg'? May take a long time to run. '$arrg'?? [Yy/Nn] $txtrst"
-  read -r -n 1 -t 15 yn
+  read -r -n 1 -t 5 yn
   echo
   # [ -z "$yn" ] && yn="${-1:-No}"    # default to 'No'
-  [ -z "$yn" ] && yn="No"    # default to 'No'
+  [ -z "$yn" ] && local yn="No"    # default to 'No'
   # YES
   if [ "$yn" != "${yn#[Yy]}" ] ; then
     "$@"
+    return 0;
   # NO
   else
     for _ in {0..10}; do
@@ -23,6 +24,7 @@ function askToRun() {
         echo "We ain't gonna '$arrg'!"
       }
     done
+    return 1;
   fi 
 }
 
@@ -54,12 +56,12 @@ EOF
   # printf "\tcreated by:\t\t%s\n" "${BASH_SOURCE[0]}"
   # printf "\tsaved to:\t\t%s\n\n\n" "$logfile"
   # TODO: ignore special characters (escaped sequences) in sysReport.log
- 
+  # return 0; # the default return value is the exit value of the last statement executed within the function (ie echo)
+  echo -e "\tsaved to:\t\t%s\n\n\n" "$logfile"
 }
 
 # append sysReport output to sysReport.log
-askToRun sysReport | tee -a "$logfile"
-
+sysReport | tee -a "$logfile"
 
 
 
@@ -85,7 +87,7 @@ function systemInfo() {
 EOF
 }
 
-askToRun systemInfo
+
 
 
 # git ignore
@@ -94,30 +96,55 @@ askToRun systemInfo
 
 
 
+function exampleUndefinedVariable() {
+  name=${1:-}
+  if [[ -z "$name" ]]; then
+      echo "usage: $0 NAME"
+      exit 1
+  fi
+  echo "Hello, $name"
+}
 
+
+
+
+
+
+# GlobStar Examples:
 # ls **/*.text
 # grep -r textToFind **/*documentName*
-echo "ls **/*.text"
-echo "grep -r textToFind **/*documentName*"
 shopt -s globstar
 
 
 
-askToRun printenv;
+
 
 function printDateInfo() {
+  local firstDayNextYear;
+  firstDayNextYear=$(date -j -f "%Y%m%d%H%M%S" "$(( $(date +"%Y0101000000")+10000000000 ))" "+%s");
+  local currDate;
+  currDate=$(date "+%s");
+  local timeRemianingThisYear=$firstDayNextYear-$currDate;
+  local daysRemainingThisYear=$(( timeRemianingThisYear/(60*60*24) ));
+  local nextYear=$(( $(date +"%Y")+1 ));
   echo
   cal | grep -C6 --color "\b$(date +%-e)\b";
   echo
   date "+%A %B %d"                                                        # Wednesday February 27
   date "+%I:%M %p"                                                        # 10:07 AM
-  date "+%j days into $(( $(date +"%Y") ))"                               # 058 days into 2019
-  echo -n "$((($(date -j -f "%Y%m%d" "$(( $(date +"%Y0101")+10000 ))" "+%s") - $(date "+%s"))/(60*60*24)))";
-  echo " days until $(( $(date +"%Y")+1 ))"
+  date "+%j days into $(( $(date +"%Y") ))";                              # 058 days into 2019
+  echo "$daysRemainingThisYear days until $nextYear"
   echo;echo
 }
 
-# askToRun printDateInfo Yes;
-askToRun printDateInfo;
+function runAllThese() {
+  declare -a functionsToRun=("sysReport" "systemInfo" "printenv" "printDateInfo" "curl wttr.in")
+  for f in "${functionsToRun[@]}"; do
+    echo "START $f"; echo;
+    $f;
+    echo;
+    echo "END $f"; echo;
+  done;
+}
 
-askToRun curl wttr.in;
+askToRun runAllThese;

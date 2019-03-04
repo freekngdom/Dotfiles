@@ -6,6 +6,10 @@ echo "$HOME/.bash_profile"
 echo "$HOME/.bash_profile"
 echo "$HOME/.bash_profile"
 echo
+echo
+echo "  \$PATH:"; echo -e "${PATH//:/\\n}"
+# todo: What is setting path before here?
+echo
 
 # This loads in the configuration from $HOME/.bashrc
 # Put all configuration there

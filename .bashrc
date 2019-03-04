@@ -7,7 +7,7 @@ echo
 echo
 echo -n "Hola "; whoami;
 
-function runFilesInBashrcDirectory() {
+function sourceFilesInBashrcDirectory() {
   local txtrst='\e[0m'    # Text Reset
   local bldpur='\e[1;35m' # Purple
   local bldblu='\e[1;34m' # Blue
@@ -18,7 +18,7 @@ function runFilesInBashrcDirectory() {
     echo
   done
 }
-runFilesInBashrcDirectory
+sourceFilesInBashrcDirectory
 
 echo
 echo "$HOME/.bashrc"
