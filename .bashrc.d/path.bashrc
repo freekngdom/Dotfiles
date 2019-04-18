@@ -8,7 +8,7 @@
 
 # add to PATH
 # BREW added the '/icu4c/'
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt/icu4c/bin:/usr/local/opt/icu4c/sbin:$NPM_PACKAGES/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt/icu4c/bin:/usr/local/opt/icu4c/sbin:$NPM_PACKAGES/bin:/Users/admin/.cargo/bin:$PATH"
 
 echo
 echo -n "\$NODE_PATH:"; echo "$NODE_PATH"
